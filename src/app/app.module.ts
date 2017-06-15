@@ -13,12 +13,12 @@ import { WatsonService } from './watson.service';
 const ROUTES = [
   {
     path: '',
-    redirectTo: 'msgs',
+    redirectTo: 'app',
     pathMatch: 'full'
   },
   {
-    path: 'msgs',
-    component: MensagemComponent
+    path: 'app',
+    component: AppComponent
   }
 ];
 

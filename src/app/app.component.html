@@ -1,2 +1,32 @@
+    <div #myMensagens class="section mensagens">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 ">
 
+            <app-mensagem
+            *ngFor="let msg of mensagens" [mensagem]="msg"></app-mensagem> 
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="formulario section section-primary">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <form>
+              <div class="form-group">
+                <input type="text" class="form-control input-lg" placeholder="Mensagem" #msg_usuario>
+              </div>
+              <div class="form-group text-right">
+                <button class="btn btn-lg btn-warning" (click)="enviaMensagem(msg_usuario)">Enviar
+                  <i class="fa fa-hand-o-up fa-fw"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 <router-outlet></router-outlet>

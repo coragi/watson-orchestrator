@@ -1,10 +1,10 @@
-<div class="container">
-  <div class="row" *ngFor="let msg of msgs">
-    <div class="card card-block">
-      <h4 class="card-title">{{ msg.score }}</h4>
-      <p class="card-text">{{msg.id}}</p>
-      <a href="#" class="card-link">Card link</a>
-      <a href="#" class="card-link">Another link</a>
-    </div>
-  </div>
+<div *ngIf="mensagem.msg_usuario" class="text-left">
+  <h2>
+    <span class="label label-success">{{ mensagem.msg_usuario }}</span>
+  </h2>
+</div>
+<div *ngIf="mensagem.msg_watson" class="text-right">
+  <div innerHTML = "{{ mensagem.msg_watson }}"></div>    
+  <span>{{ mensagem.intencao }} <span class="label label-danger">{{ mensagem.confianca | number : '1.2-2'}}</span>
+  </span>
 </div>

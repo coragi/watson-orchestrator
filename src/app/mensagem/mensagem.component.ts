@@ -1,22 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { WatsonService } from '../watson.service';
+import { Component, OnInit, Input } from '@angular/core';
+import { Mensagem } from './mensagem.model';
 
 @Component({
   selector: 'app-mensagem',
   templateUrl: './mensagem.component.html',
   styleUrls: ['./mensagem.component.css']
 })
+  
 export class MensagemComponent implements OnInit {
-  // instantiate posts to an empty array
-  msgs: any;
-
-  constructor(private watsonService: WatsonService) { }
-
+  @Input() mensagem: Mensagem;
+  
   ngOnInit() {
-    // Retrieve posts from the API
-    this.watsonService.pesquisaDiscovery('algoritmo').subscribe(msgs => {
-      console.log(msgs);
-      this.msgs = msgs.results;
-    });
   }
+
 }
