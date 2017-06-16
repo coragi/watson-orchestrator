@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
+var removeDiacritics = require('./diacritics');
+
+//console.log(removeDiacritics('áçãOô'));
 
 /* o ideal aqui eh colocar na tela a lista das APIs disponiveis nesse modulo */
 router.get('/', (req, res) => {
@@ -27,7 +30,8 @@ if (process.env.DISCOVERY_FLAG == 'true') {
 
     //texto que serah pesquisado
     //front-end deve montar a pesquisa com as regras da API do Discovery
-    var termo = req.params.termo;
+    //usando a funcao removeDiacritics para remover acentos
+    var termo = removeDiacritics(req.params.termo);
 
     discovery.query({
         environment_id: process.env.DISCOVERY_ENVIRONMENT,
