@@ -2,17 +2,19 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 
+import { environment } from '../environments/environment';
+
 @Injectable()
 export class WatsonService {
 
-  // URL para localhost (pra dev)
-  // mudar para vazio quando for pra producao
-  private URL_server: string = 'http://localhost:3000';
+  // URL das APIs - eh definida em environment.ts
+  private URL_server: string = environment.apiURL;
+
   // variavel que armazena o contexto de uma conversa
   private context: Object;
 
   constructor(private http: Http) {
-    this.context = {}; // inicia o contexto
+    this.context = {}; // inicializa o contexto
   }
 
   msgParaWatson(msg: string) {
