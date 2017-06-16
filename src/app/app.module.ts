@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { RouterModule } from '@angular/router';
+//import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { MensagemComponent } from './mensagem/mensagem.component';
@@ -11,17 +11,18 @@ import { WatsonService } from './watson.service';
 
 // Define the routes
 // a principio, qq rota envia para o componente AppComponent
-const ROUTES = [
-  {
-    path: '',
-    redirectTo: 'app',
-    pathMatch: 'full'
-  },
-  {
-    path: 'app',
-    component: AppComponent
-  }
-];
+// Por simplicidade, retirei o router
+// const ROUTES = [
+//   {
+//     path: '',
+//     redirectTo: 'app',
+//     pathMatch: 'full'
+//   },
+//   {
+//     path: 'app',
+//     component: AppComponent
+//   }
+// ];
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ const ROUTES = [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(ROUTES) // Add routes to the app
+//    RouterModule.forRoot(ROUTES) // Add routes to the app
   ],
   providers: [WatsonService],
   bootstrap: [AppComponent]
