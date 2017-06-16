@@ -1,7 +1,10 @@
-import { Component, EventEmitter, OnInit, AfterViewChecked, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, EventEmitter, AfterViewChecked, ElementRef, ViewChild } from '@angular/core';
 import { Mensagem } from './mensagem/mensagem.model';
 import { WatsonService } from './watson.service';
 import { Observable } from 'rxjs';
+
+//importa as variaveis de ambiente
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -9,30 +12,21 @@ import { Observable } from 'rxjs';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent implements AfterViewInit, OnInit, AfterViewChecked {
+export class AppComponent implements AfterViewChecked {
+  //referencia ao div das mensagens
   @ViewChild('myMensagens') myScrollContainer: ElementRef;
-  //mensagens: EventEmitter<Mensagem[]> = new EventEmitter<Mensagem[]>();
+  //vetor de mensagens que aparece na tela
   mensagens: Mensagem[];
 
   constructor(private watsonService: WatsonService) {
     this.mensagens = [];
   }
-
-  ngAfterViewInit() {
-    this.scrollToBottom();
-  }
-
-  ngOnInit() {
-    this.scrollToBottom();
-
-  }
-
+  //apos cada atualizacao da view, manda o scroll pra ultima msg
   ngAfterViewChecked() {
     this.scrollToBottom();
   }
 
-
-
+  // metodo para fazer a ultima mensagem ficar visivel  
   scrollToBottom(): void {
     try {
       this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
@@ -49,7 +43,10 @@ export class AppComponent implements AfterViewInit, OnInit, AfterViewChecked {
     //limpa o campo de mensagem
     msg_usuario.value = '';
 
+
+
     //envia mensagem para o Conversation
+    /*
     this.watsonService.msgParaWatson(m.msg_usuario)
       .subscribe(
       (result: any) => {
@@ -85,5 +82,20 @@ export class AppComponent implements AfterViewInit, OnInit, AfterViewChecked {
         }
       }
       );
+ 
+
+*/
+
+    //quando for apenas DISCOVERY, o chat é apenas um campo de pesquisa na base
+    //assim, o usuario deve colocar a query completa se for usar enriched_text por exemplo
+    if (environment.discovery_flag && !environment.nlu_flag && !environment.conversation_flag) {
+      this.watsonService.pesquisaDiscovery(m.msg_usuario)
+        .subscribe(
+        (result_discovery: any) => {
+          m.msg_watson = 'Resultados: ' + result_discovery.matching_results + '<br><br><b>Texto do resultado mais relevante:</b><br>'
+            + result_discovery.results[0].text;
+        }
+        );
+    }
   }
 }
