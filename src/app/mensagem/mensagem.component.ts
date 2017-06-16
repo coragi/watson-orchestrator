@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Mensagem } from './mensagem.model';
 
 @Component({
@@ -7,10 +7,6 @@ import { Mensagem } from './mensagem.model';
   styleUrls: ['./mensagem.component.css']
 })
   
-export class MensagemComponent implements OnInit {
+export class MensagemComponent {
   @Input() mensagem: Mensagem;
-  
-  ngOnInit() {
-  }
-
 }
