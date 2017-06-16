@@ -13,7 +13,6 @@ as respectivas flags forem habilitadas*/
 var discovery;
 var conversation;
 var nlu;
-var context = {};
 
 if (process.env.DISCOVERY_FLAG == 'true') {
   var DiscoveryV1 = require('watson-developer-cloud/discovery/v1');
@@ -22,7 +21,6 @@ if (process.env.DISCOVERY_FLAG == 'true') {
     password: process.env.DISCOVERY_PASS,
     version_date: '2017-04-27'
   });
-
 
   //trata o endpoint do discovery
   router.get('/discovery/:termo', (req, res) => {
@@ -58,25 +56,25 @@ if (process.env.CONVERSATION_FLAG == 'true') {
   });
 
   //trata o endpoint do conversation
-  router.get('/conversation/:mensagem', (req, res) => {
+  router.post('/conversation/:mensagem', (req, res, opts) => {
 
     //mensagem enviada pelo usuario
     var mensagem = req.params.mensagem;
-
+    var ctxt = req.params.context; // NAO TESTEI AINDA
     //envia a mensagem para o watson  
     conversation.message({
       workspace_id: process.env.CONVERSATION_WORKSPACE,
       input: {
         'text': mensagem
       },
-      context: context
+      context: ctxt
     }, function (error, data) {
       //ao receber a resposta, seta o contexto
 
-      //AVALIAR SE O CONTEXTO DEVE SER SETADO AQUI OU NO FRONT-END
+      //O CONTEXTO DEVE SER SETADO AQUI OU NO FRONT-END
       //PQ PODE EXISTIR A NECESSIDADE DE MODIFICAR VARIAVEIS DO CONTEXTO
 
-      context = data.context;
+      //context = data.context;
 
       //monta o cabecalho e envia a resposta
       res.setHeader('Content-Type', 'application/json');
