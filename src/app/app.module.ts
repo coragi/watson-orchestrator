@@ -10,6 +10,7 @@ import { MensagemComponent } from './mensagem/mensagem.component';
 import { WatsonService } from './watson.service';
 
 // Define the routes
+// a principio, qq rota envia para o componente AppComponent
 const ROUTES = [
   {
     path: '',
