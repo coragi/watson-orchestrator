@@ -1,3 +1,9 @@
+# Instruções para rodar em um ambiente de desenvolvimento
+
+Quando subir o servidor Nodejs na porta 3000 separadamente do Angular2 na porta 4200, ocorre um erro de Allow-Control-Allow-Origin. Como é muito mais fácil desenvolver com os dois serviços separados, uso o plugin do Chrome abaixo para evitar esse erro:
+
+https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi
+
 # WatsonOrchestrator
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.6.
