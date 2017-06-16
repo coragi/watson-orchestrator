@@ -1,9 +1,11 @@
 <div *ngIf="mensagem.msg_usuario" class="text-left">
   <h2>
+    <!-- CRIAR UMA CLASSE AO INVES DE USAR LABEL, JA Q LABEL NAO QUEBRA A LINHA-->
     <span class="label label-success">{{ mensagem.msg_usuario }}</span>
   </h2>
 </div>
 <div *ngIf="mensagem.msg_watson" class="text-right">
+  <!-- recurso para links funcionarem -->
   <div innerHTML = "{{ mensagem.msg_watson }}"></div>    
   <span>{{ mensagem.intencao }} <span class="label label-danger">{{ mensagem.confianca | number : '1.2-2'}}</span>
   </span>
