@@ -1,3 +1,7 @@
+# Se fizer um clone para outro projeto
+
+Caso faça um clone para outro projeto, não se esqueça de alterar o nome do diretório no arquivo package.json
+
 # Instruções para rodar em um ambiente de desenvolvimento
 
 Quando subir o servidor Nodejs na porta 3000 separadamente do Angular2 na porta 4200, ocorre um erro de Allow-Control-Allow-Origin. Como é muito mais fácil desenvolver com os dois serviços separados, uso o plugin do Chrome abaixo para evitar esse erro:
