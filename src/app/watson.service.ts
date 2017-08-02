@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 import { environment } from '../environments/environment';
@@ -22,8 +22,12 @@ export class WatsonService {
       input: { 'text': msg },
       context: this.context
     };
+	
+	let body = JSON.stringify(payload );
+	let headers = new Headers({ 'Content-Type': 'application/json' });
+	let options = new RequestOptions({ headers: headers });
 
-    return this.http.post(this.URL_server + '/api/conversation', JSON.stringify(payload))
+    return this.http.post(this.URL_server + '/api/conversation', JSON.stringify(payload), options)
       .map((res: Response) => {
         this.context = res.json().context;
         return res.json();
