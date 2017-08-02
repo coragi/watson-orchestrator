@@ -41,6 +41,10 @@ if (process.env.DISCOVERY_FLAG == 'true') {
         //isso eh algo que o front-end manda. entao sempre vai retornar tudo
       },
       function (error, data) {
+		if (error) {
+			console.error(error);
+		}
+		  
         res.setHeader('Content-Type', 'application/json');
         res.status(200).json(data);
         //console.log(JSON.stringify(data, null, 2));
