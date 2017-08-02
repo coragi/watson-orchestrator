@@ -76,7 +76,7 @@ if (process.env.CONVERSATION_FLAG == 'true') {
 
     //mensagem enviada pelo usuario
     var mensagem = req.body.input.text;
-    var ctxt = req.params.context; // NAO TESTEI AINDA
+    var ctxt = req.body.context;
     //envia a mensagem para o watson  
     conversation.message({
       workspace_id: process.env.CONVERSATION_WORKSPACE,
