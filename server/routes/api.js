@@ -3,7 +3,13 @@ const router = express.Router();
 
 var removeDiacritics = require('./diacritics');
 
-//console.log(removeDiacritics('áçãOô'));
+// Permite o acesso de qualquer lugar
+router.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 
 /* o ideal aqui eh colocar na tela a lista das APIs disponiveis nesse modulo */
 router.get('/', (req, res) => {
@@ -41,6 +47,10 @@ if (process.env.DISCOVERY_FLAG == 'true') {
         //isso eh algo que o front-end manda. entao sempre vai retornar tudo
       },
       function (error, data) {
+		if (error) {
+			console.error(error);
+		}
+		  
         res.setHeader('Content-Type', 'application/json');
         res.status(200).json(data);
         //console.log(JSON.stringify(data, null, 2));
@@ -60,11 +70,13 @@ if (process.env.CONVERSATION_FLAG == 'true') {
   });
 
   //trata o endpoint do conversation
-  router.post('/conversation/:mensagem', (req, res, opts) => {
+  router.post('/conversation', (req, res, opts) => {
+	  
+	console.log('Conversa', req.body);
 
     //mensagem enviada pelo usuario
-    var mensagem = req.params.mensagem;
-    var ctxt = req.params.context; // NAO TESTEI AINDA
+    var mensagem = req.body.input.text;
+    var ctxt = req.body.context;
     //envia a mensagem para o watson  
     conversation.message({
       workspace_id: process.env.CONVERSATION_WORKSPACE,
@@ -82,6 +94,8 @@ if (process.env.CONVERSATION_FLAG == 'true') {
 
       //monta o cabecalho e envia a resposta
       res.setHeader('Content-Type', 'application/json');
+      res.setHeader('Access-Control-Allow-Origin', '*');
+	  
       res.status(200).json(data);
       //console.log(JSON.stringify(data, null, 2));
     });

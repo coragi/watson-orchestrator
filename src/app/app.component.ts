@@ -46,7 +46,6 @@ export class AppComponent implements AfterViewChecked {
 
 
     //envia mensagem para o Conversation
-    /*
     this.watsonService.msgParaWatson(m.msg_usuario)
       .subscribe(
       (result: any) => {
@@ -83,11 +82,9 @@ export class AppComponent implements AfterViewChecked {
       }
       );
  
-
-*/
-
     //quando for apenas DISCOVERY, o chat é apenas um campo de pesquisa na base
     //assim, o usuario deve colocar a query completa se for usar enriched_text por exemplo
+	/*
     if (environment.discovery_flag && !environment.nlu_flag && !environment.conversation_flag) {
       this.watsonService.pesquisaDiscovery(m.msg_usuario)
         .subscribe(
@@ -97,5 +94,6 @@ export class AppComponent implements AfterViewChecked {
         }
         );
     }
+	*/
   }
 }
