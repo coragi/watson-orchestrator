@@ -5,6 +5,9 @@
 		var ENDERECO_API = location.protocol == 'file:' ? 
 				'http://localhost:3000/api/' : 
 				location.protocol + '//' + location.host + '/api/';
+				
+		// Procura por nome_usuario no hash da URL.
+		var nomeUsuario = (/[#\?]nome_usuario=([^\?&]+)/.exec(location.hash) || [])[1] || 'usuário';
 		
 		var contextoConversacao = {};
 		var listenersConversa = [];
@@ -17,6 +20,8 @@
 				},
 				context: contextoConversacao
 			};
+			
+			payload.context.nome_usuario = nomeUsuario;
 			
 			$.ajax(ENDERECO_API + 'conversation/', {
 				data: JSON.stringify(payload), 

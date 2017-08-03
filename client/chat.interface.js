@@ -73,6 +73,8 @@
 		setDate();
 		updateScrollbar();
 		i++;
+		
+		$('.message-input').focus();
 	}
 
 	function sendMessageToServer(msg) {
