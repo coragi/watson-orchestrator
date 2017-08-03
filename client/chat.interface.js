@@ -59,10 +59,14 @@
 			.appendTo($('.mCSB_container')).addClass('new');
 			
 		var $magicButtons = $messageContainer.find('> button, > p > button');
-		$magicButtons.click(function(){
-			$magicButtons.remove();
-			insertMessage($(this).text());
-		});		
+		if ($magicButtons.length) {
+			disableTyping();
+			$magicButtons.click(function(){
+				enableTyping();
+				$magicButtons.remove();
+				insertMessage($(this).text());
+			});
+		}
 			
 		setDate();
 		updateScrollbar();
@@ -77,6 +81,15 @@
 	  updateScrollbar();
 	  
 	  ChatService.mensagem(msg)
-	}		
+	}
+	
+	function disableTyping() {
+		$('.chat').addClass('showing-modal');
+	}
+	
+	function enableTyping() {
+		$('.chat').removeClass('showing-modal');
+	}
+	
 	
 })(jQuery);

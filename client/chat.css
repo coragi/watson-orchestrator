@@ -337,6 +337,14 @@ Messages with buttons
   background: #1D7745;
 }
 
+/*----------------------------------------------
+Disabling the message box when buttons are shown
+----------------------------------------------*/
+
+.chat.showing-modal .message-box {
+	display: none;
+}
+
 
 /*--------------------
 Custom Srollbar
