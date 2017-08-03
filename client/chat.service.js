@@ -2,7 +2,9 @@
 	
 	window.ChatService = new function ChatService() {
 		
-		var ENDERECO_API = 'http://localhost:3000/api/';
+		var ENDERECO_API = location.protocol == 'file:' ? 
+				'http://localhost:3000/api/' : 
+				location.protocol + '//' + location.host + '/api/';
 		
 		var contextoConversacao = {};
 		var listenersConversa = [];
