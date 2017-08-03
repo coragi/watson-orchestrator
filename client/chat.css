@@ -345,6 +345,35 @@ Disabling the message box when buttons are shown
 	display: none;
 }
 
+/*--------------------
+Login form
+--------------------*/
+
+.chat > .login {
+	background: rgba(0, 0, 0, 0.3);
+	padding: 2em;
+	display: none;
+}
+
+.chat > .login label {
+	color: white;
+}
+
+.chat > .login input {
+	color: rgba(255, 255, 255, 0.7);
+	background: none;
+	border: none;
+}
+
+.chat.login-pendente > .login {
+	display: block;
+}
+
+.chat.login-pendente > .messages,
+.chat.login-pendente > .message-box {
+	display: none;
+}
+
 
 /*--------------------
 Custom Srollbar

@@ -12,7 +12,7 @@
 	  ChatService.registraListenerConversa(receivedMessageFromServer);
 	  
 	  setTimeout(function() {
-		sendMessageToServer('Olá');
+		login();
 	  }, 100);
 	});
 
@@ -29,6 +29,23 @@
 		m = d.getMinutes();
 		$('<div class="timestamp">' + d.getHours() + ':' + m + '</div>').appendTo($('.message:last'));
 	  }
+	}
+	
+	function login() {
+		if (!ChatService.isLoginPendente()) {
+			ChatService.login();
+			return;
+		}
+		
+		var $nomeUsuario = $('.login input[name="nome_usuario"]');
+		var nomeUsuario = ($nomeUsuario.val() || '').trim();
+		if (nomeUsuario) {
+			ChatService.login({
+				nome_usuario: nomeUsuario
+			});
+		} else {
+			$nomeUsuario.focus();
+		}
 	}
 
 	function insertMessage(msg) {
@@ -49,13 +66,18 @@
 
 	$(window).on('keydown', function(e) {
 	  if (e.which == 13) {
-		insertMessage();
+		if (ChatService.isLoginPendente()) {
+			login();
+		} else {
+			insertMessage();
+		}
 		return false;
 	  }
 	})
 
 	function receivedMessageFromServer(msg) {
 		$('.message.loading').remove();
+		$('.chat').removeClass('login-pendente');
 		
 		var $mainContainer = $('.mCSB_container');
 		
@@ -78,9 +100,6 @@
 	}
 
 	function sendMessageToServer(msg) {
-	  if ($('.message-input').val() != '') {
-		return false;
-	  }
 	  $(renderServerMessage('<span></span>')).addClass('loading').appendTo($('.mCSB_container'));
 	  updateScrollbar();
 	  

@@ -7,7 +7,7 @@
 				location.protocol + '//' + location.host + '/api/';
 				
 		// Procura por nome_usuario no hash da URL.
-		var nomeUsuario = (/[#\?]nome_usuario=([^\?&]+)/.exec(location.hash) || [])[1] || 'usuário';
+		var nomeUsuario = (/[#\?]nome_usuario=([^\?&]+)/.exec(location.hash) || [])[1];
 		
 		var contextoConversacao = {};
 		var listenersConversa = [];
@@ -35,13 +35,24 @@
 				});
 			}).fail(function(textStatus, errorThrown){
 				console.error('Erro ao comunicar com o servidor de conversação', textStatus, errorThrown);
-			});
+			});		
 		
 		};
 		
 		this.registraListenerConversa = function(listener) {
 			listenersConversa.push(listener);
-		}
+		};
+
+		this.isLoginPendente = function() {
+			return !nomeUsuario;
+		};
+		
+		this.login = function(dados) {
+			if (dados) {
+				nomeUsuario = dados.nome_usuario;
+			}			
+			this.mensagem('Olá');
+		};
 		
 	};
 	
