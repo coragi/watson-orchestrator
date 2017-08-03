@@ -369,6 +369,7 @@ Login form
 	display: block;
 }
 
+.chat.login-pendente > .chat-title,
 .chat.login-pendente > .messages,
 .chat.login-pendente > .message-box {
 	display: none;
