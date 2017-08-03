@@ -3,6 +3,8 @@
 	var $messages = $('.messages-content'),
 		d, h, m,
 		i = 0;
+	
+	var ICON_URL = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/156381/profile/profile-80.jpg';
 
 	$(window).on('load', function() {
 	  $messages.mCustomScrollbar();
@@ -55,7 +57,7 @@
 	function receivedMessageFromServer(msg) {
 		$('.message.loading').remove();
 		
-		var $messageContainer = $('<div class="message new"><figure class="avatar"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/156381/profile/profile-80.jpg" /></figure>' + msg + '</div>')
+		var $messageContainer = $(renderServerMessage(msg))
 			.appendTo($('.mCSB_container')).addClass('new');
 			
 		var $magicButtons = $messageContainer.find('> button, > p > button');
@@ -77,7 +79,7 @@
 	  if ($('.message-input').val() != '') {
 		return false;
 	  }
-	  $('<div class="message loading new"><figure class="avatar"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/156381/profile/profile-80.jpg" /></figure><span></span></div>').appendTo($('.mCSB_container'));
+	  $(renderServerMessage('<span></span>')).addClass('loading').appendTo($('.mCSB_container'));
 	  updateScrollbar();
 	  
 	  ChatService.mensagem(msg)
@@ -89,6 +91,13 @@
 	
 	function enableTyping() {
 		$('.chat').removeClass('showing-modal');
+	}
+	
+	function renderServerMessage(msg) {
+		return tim('<div class="message new"><figure class="avatar"><img src="{{iconUrl}}" /></figure>{{msg}}</div>', {
+			msg: msg,
+			iconUrl: ICON_URL
+		});
 	}
 	
 	
