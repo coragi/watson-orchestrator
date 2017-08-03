@@ -57,18 +57,18 @@
 	function receivedMessageFromServer(msg) {
 		$('.message.loading').remove();
 		
+		var $mainContainer = $('.mCSB_container');
+		
 		var $messageContainer = $(renderServerMessage(msg))
-			.appendTo($('.mCSB_container')).addClass('new');
-			
-		var $magicButtons = $messageContainer.find('> button, > p > button');
-		if ($magicButtons.length) {
-			disableTyping();
-			$magicButtons.click(function(){
-				enableTyping();
-				$magicButtons.remove();
-				insertMessage($(this).text());
-			});
-		}
+			.appendTo($mainContainer).addClass('new');
+				
+		$messageContainer.find('> p').remove().each(function(){
+			var $paragraphContainer = $(renderServerMessage(this.innerHTML))
+				.appendTo($mainContainer).addClass('new');
+			decorateMessageContainer($paragraphContainer);
+		});
+
+		decorateMessageContainer($messageContainer);
 			
 		setDate();
 		updateScrollbar();
@@ -100,5 +100,16 @@
 		});
 	}
 	
+	function decorateMessageContainer($container) {
+		var $magicButtons = $container.find('> button, > p > button');
+		if ($magicButtons.length) {
+			disableTyping();
+			$magicButtons.click(function(){
+				enableTyping();
+				$magicButtons.remove();
+				insertMessage($(this).text());
+			});
+		}
+	}	
 	
 })(jQuery);
