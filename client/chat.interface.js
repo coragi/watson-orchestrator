@@ -4,7 +4,7 @@
 		d, h, m,
 		i = 0;
 	
-	var ICON_URL = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/156381/profile/profile-80.jpg';
+	var ICON_URL = 'http://findicons.com/files/icons/1790/large_android/32/classic_robot.png';
 
 	$(window).on('load', function() {
 	  $messages.mCustomScrollbar();
