@@ -313,6 +313,29 @@ Message Box
 }
 
 /*--------------------
+Messages with buttons
+--------------------*/
+
+.message > button {
+	display: block;
+	width: 100%;
+	
+	color: #fff;
+	font-size: 11px;
+	background: #248A52;
+	border: none;
+	border-radius: 10px;	
+	
+	margin-top: 2px;
+	padding: 0.3em;
+}
+
+.message > button:hover {
+  background: #1D7745;
+}
+
+
+/*--------------------
 Custom Srollbar
 --------------------*/
 .mCSB_scrollTools {
