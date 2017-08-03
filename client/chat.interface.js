@@ -76,21 +76,30 @@
 	})
 
 	function receivedMessageFromServer(msg) {
-		$('.message.loading').remove();
 		$('.chat').removeClass('login-pendente');
+		hideServerInProgress();
 		
 		var $mainContainer = $('.mCSB_container');
 		
 		var $messageContainer = $(renderServerMessage(msg))
 			.appendTo($mainContainer).addClass('new');
 				
-		$messageContainer.find('> p').remove().each(function(){
-			var $paragraphContainer = $(renderServerMessage(this.innerHTML))
-				.appendTo($mainContainer).addClass('new');
-			decorateMessageContainer($paragraphContainer);
-		});
-
+		var $paragraphs = $messageContainer.find('> p').remove();
 		decorateMessageContainer($messageContainer);
+
+		if ($paragraphs.length) {
+			showServerInProgress();
+			
+			iterateCollectionWithDelay($paragraphs, function(el){
+				hideServerInProgress();
+				
+				var $paragraphContainer = $(renderServerMessage(el.innerHTML))
+					.appendTo($mainContainer).addClass('new');
+				decorateMessageContainer($paragraphContainer);
+				
+				showServerInProgress();
+			}, hideServerInProgress);
+		}
 			
 		setDate();
 		updateScrollbar();
@@ -100,10 +109,17 @@
 	}
 
 	function sendMessageToServer(msg) {
-	  $(renderServerMessage('<span></span>')).addClass('loading').appendTo($('.mCSB_container'));
-	  updateScrollbar();
-	  
-	  ChatService.mensagem(msg)
+		showServerInProgress();
+		ChatService.mensagem(msg)
+	}
+	
+	function showServerInProgress() {
+		$(renderServerMessage('<span></span>')).addClass('loading').appendTo($('.mCSB_container'));
+		updateScrollbar();
+	}
+	
+	function hideServerInProgress() {
+		$('.message.loading').remove();
 	}
 	
 	function disableTyping() {
@@ -131,6 +147,29 @@
 				insertMessage($(this).text());
 			});
 		}
-	}	
+	}
+	
+	function iterateCollectionWithDelay(collection, callback, done) {
+		var position = 0;
+		
+		function randomDelay(f) {
+			window.setTimeout(f, 800 + Math.trunc(Math.random() * 800));
+		}
+		
+		function next() {
+			if (position < collection.length) {
+				callback(collection[position]);
+			}
+			
+			position++;			
+			if (position < collection.length) {
+				randomDelay(next);
+			} else {
+				done && done();
+			}
+		}
+		
+		randomDelay(next);
+	}
 	
 })(jQuery);
