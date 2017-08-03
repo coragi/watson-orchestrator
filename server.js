@@ -14,8 +14,8 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// Point static path to dist
-app.use(express.static(path.join(__dirname, 'dist')));
+// Point static path to dist, unless STATIC_ROOT is informed
+app.use(express.static(path.join(__dirname, process.env.STATIC_ROOT || 'dist')));
 
 // Set our api routes
 app.use('/api', api);
