@@ -10,7 +10,7 @@
 	  ChatService.registraListenerConversa(receivedMessageFromServer);
 	  
 	  setTimeout(function() {
-		sendMessageToServer();
+		sendMessageToServer('Olá');
 	  }, 100);
 	});
 
