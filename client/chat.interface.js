@@ -58,7 +58,7 @@
 		var $messageContainer = $('<div class="message new"><figure class="avatar"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/156381/profile/profile-80.jpg" /></figure>' + msg + '</div>')
 			.appendTo($('.mCSB_container')).addClass('new');
 			
-		var $magicButtons = $messageContainer.find('> button');
+		var $magicButtons = $messageContainer.find('> button, > p > button');
 		$magicButtons.click(function(){
 			$magicButtons.remove();
 			insertMessage($(this).text());

@@ -316,10 +316,7 @@ Message Box
 Messages with buttons
 --------------------*/
 
-.message > button {
-	display: block;
-	width: 100%;
-	
+.message button {
 	color: #fff;
 	font-size: 11px;
 	background: #248A52;
@@ -328,6 +325,12 @@ Messages with buttons
 	
 	margin-top: 2px;
 	padding: 0.3em;
+}
+
+.message > button,
+.message > p > button {
+	display: block;
+	width: 100%;	
 }
 
 .message > button:hover {
