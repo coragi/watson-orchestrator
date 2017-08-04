@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="pt_BR">
+
+<head>
+	<meta charset="UTF-8" /> 	
+	<link rel="stylesheet" href="jquery.mCustomScrollbar.min.css">
+	<link rel="stylesheet" href="chat.css">
+
+	<!--[if lt IE 9]>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+	<div class="chat">
+	  <div class="chat-title">
+		<h1>Watson</h1>
+		<h2>Supah</h2>
+		<figure class="avatar">
+		  <img src="http://findicons.com/files/icons/1790/large_android/32/armed_robot.png" /></figure>
+	  </div>
+	  <div class="messages">
+		<div class="messages-content"></div>
+	  </div>
+	  <div class="message-box">
+		<textarea type="text" class="message-input" placeholder="Type message..."></textarea>
+		<button type="submit" class="message-submit">Send</button>
+	  </div>
+
+	</div>
+	<div class="bg"></div>
+	
+	<script src="jquery-2.1.3.min.js"></script>
+	<script src="jquery.mCustomScrollbar.concat.min.js"></script>
+	<script src="tinytim.min.js"></script>
+	<script src="chat.service.js"></script>
+	<script src="chat.interface.js"></script>
+</body>
+
+</html>
