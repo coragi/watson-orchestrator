@@ -12,7 +12,9 @@ router.get('/video/*', (req, res) => {
 	let caminho = req.params[0];
 	console.info('Video no caminho ' + caminho);
 	
-	let caminhoCompleto = CAMINHO_BASE + caminho;
+	let caminhoCompleto = CAMINHO_BASE + caminho.split('/').map(encodeURIComponent).join('/');
+	console.info('Caminho completo ' + caminhoCompleto);
+	
 	request.get(caminhoCompleto, {
 		auth: {
 			user: process.env.UNIVERSIDADE_USER,
