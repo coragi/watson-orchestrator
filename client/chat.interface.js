@@ -138,6 +138,7 @@
 	}
 	
 	function decorateMessageContainer($container) {
+		// Buttons
 		var $magicButtons = $container.find('> button, > p > button');
 		if ($magicButtons.length) {
 			disableTyping();
@@ -147,6 +148,20 @@
 				insertMessage($(this).text());
 			});
 		}
+		
+		// Videos
+		var $videos = $container.find('video[ats-universidade]').each(function(){
+			var $video = $(this);
+			var path = $video.attr('ats-universidade');
+			var fullPath = 'http://universidadeats.com.br/pluginfile.php/' + path;
+			
+			$video.attr({ controls: 'controls', autoplay: 'autoplay' }).css({
+				width: '100%',
+				'max-height': ($messages.height() - 8) + 'px'
+			});
+			
+			$('<source type="video/mp4">').attr('src', fullPath).appendTo($video);
+		});
 	}
 	
 	function iterateCollectionWithDelay(collection, callback, done) {
