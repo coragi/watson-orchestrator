@@ -153,7 +153,7 @@
 		var $videos = $container.find('video[ats-universidade]').each(function(){
 			var $video = $(this);
 			var path = $video.attr('ats-universidade');
-			var fullPath = 'http://universidadeats.com.br/pluginfile.php/' + path;
+			var fullPath = '/universidade/video/' + path;
 			
 			$video.attr({ controls: 'controls', autoplay: 'autoplay' }).css({
 				width: '100%',
