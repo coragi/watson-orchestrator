@@ -383,6 +383,8 @@ Search results
 .search-result > h3 {
 	color: #fff;
 	background: #A42328;
+	padding: 0.3em;
+	border-radius: 2px;
 }
 
 .search-result > fieldset {
@@ -391,6 +393,9 @@ Search results
 	border-radius: 4px;
 }
 
+.search-result.collapsed > fieldset {
+	display: none;
+}
 
 /*--------------------
 Custom Srollbar
@@ -426,6 +431,7 @@ Bounce
             transform: matrix3d(0.883, 0, 0, 0, 0, 0.883, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
   }
   14.11% {
+	  
     -webkit-transform: matrix3d(1.141, 0, 0, 0, 0, 1.141, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
             transform: matrix3d(1.141, 0, 0, 0, 0, 1.141, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
   }

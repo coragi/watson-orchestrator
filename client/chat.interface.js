@@ -128,7 +128,7 @@
 	function receivedSearchResultsFromServer(resultados, dados) {
 		var html = tim('<ul class="search-results">{{resultados}}</ul>', {
 			resultados: resultados.map(function(res){
-				return tim('<li class="search-result">' + 
+				return tim('<li class="search-result collapsed">' + 
 					'<h3>{{titulo}}</h3>' + 
 					'<fieldset><legend>Problema</legend><div>{{problema}}</div></fieldset>' +
 					'<fieldset><legend>Solução</legend><div>{{solucao}}</div></fieldset>' +
@@ -193,6 +193,11 @@
 			
 			$('<source type="video/mp4">').attr('src', fullPath).appendTo($video);
 		});
+		
+		// Search results
+		$container.find('.search-result > h3').click(function(){
+			$(this).parent().toggleClass('collapsed');
+		}).first().parent().removeClass('collapsed');
 	}
 	
 	function iterateCollectionWithDelay(collection, callback, done) {
