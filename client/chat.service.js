@@ -39,6 +39,18 @@
 		
 		};
 		
+		this.pesquisa = function(tipo, texto) {
+			
+			$.get(ENDERECO_API + 'discovery/' + (tipo || ''), {
+				q: texto
+			}).done(function(dado){
+				console.log('Retorno do servidor de pesquisa', dado);
+			}).fail(function(textStatus, errorThrown){
+				console.error('Erro ao comunicar com o servidor de pesquisa', textStatus, errorThrown);
+			});
+			
+		}
+		
 		this.registraListenerConversa = function(listener) {
 			listenersConversa.push(listener);
 		};
@@ -53,6 +65,9 @@
 			}			
 			this.mensagem('Olá');
 		};
+		
+		function invocaListenersConversa(texto, dado) {
+		}
 		
 	};
 	
