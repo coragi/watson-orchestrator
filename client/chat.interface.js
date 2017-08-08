@@ -121,7 +121,7 @@
 	function receivedSearchResultsFromServer(resultados) {
 		var html = tim('<ul class="search-results">{{resultados}}</ul>', {
 			resultados: resultados.map(function(res){
-				return tim('<li>' + 
+				return tim('<li class="search-result">' + 
 					'<h3>{{titulo}}</h3>' + 
 					'<fieldset><legend>Problema</legend><div>{{problema}}</div></fieldset>' +
 					'<fieldset><legend>Solução</legend><div>{{solucao}}</div></fieldset>' +

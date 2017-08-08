@@ -372,6 +372,27 @@ Login form
 
 
 /*--------------------
+Search results
+--------------------*/
+
+.search-results {
+	list-style-type: none;
+	padding: 0;
+}
+
+.search-result > h3 {
+	color: #fff;
+	background: #A42328;
+}
+
+.search-result > fieldset {
+	border: none;
+	background: rgba(0, 0, 0, 0.5);
+	border-radius: 4px;
+}
+
+
+/*--------------------
 Custom Srollbar
 --------------------*/
 .mCSB_scrollTools {
