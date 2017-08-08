@@ -186,7 +186,7 @@
 			var path = $video.attr('ats-universidade');
 			var fullPath = '/universidade/video/' + path;
 			
-			$video.attr({ controls: 'controls', autoplay: 'autoplay' }).css({
+			$video.attr({ controls: 'controls' }).css({
 				width: '100%',
 				'max-height': ($messages.height() - 8) + 'px'
 			});

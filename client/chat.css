@@ -190,8 +190,8 @@ Messages
           transform: scale(0);
   -webkit-transform-origin: 0 0;
           transform-origin: 0 0;
-  -webkit-animation: bounce 500ms linear both;
-          animation: bounce 500ms linear both;
+  -webkit-animation: bounce 100ms linear both;
+          animation: bounce 100ms linear both;
 }
 .messages .message.loading::before {
   position: absolute;
