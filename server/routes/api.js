@@ -32,16 +32,28 @@ if (process.env.DISCOVERY_FLAG == 'true') {
   });
 
   //trata o endpoint do discovery
-  router.get('/discovery/', (req, res) => {
-
+  router.get('/discovery/:collection?', (req, res) => {
+	  	 
     //texto que serah pesquisado
     //front-end deve montar a pesquisa com as regras da API do Discovery
     //usando a funcao removeDiacritics para remover acentos
-    var termo = removeDiacritics(req.query.q || req.query.query);
+    var termo = removeDiacritics(req.query.q || req.query.query);	
+	
+	// Qual collection do Discovery será pesquisado
+    var colecao = req.params.collection;	
+	
+	console.info('Discovery',  {termo: termo, colecao: colecao});
+
+	// DISCOVERY_[colecao_]_ENVIRONMENT / DISCOVERY_[colecao_]_COLLECTION
+	prefixoEnv = 'DISCOVERY_' + (colecao ? colecao.toUpperCase() + '_' : '');
+	var dadoColecao = {
+        environment_id: process.env[prefixoEnv + 'ENVIRONMENT'],
+        collection_id: process.env[prefixoEnv + 'COLLECTION'],
+	};
 
     discovery.query({
-        environment_id: process.env.DISCOVERY_ENVIRONMENT,
-        collection_id: process.env.DISCOVERY_COLLECTION,
+        environment_id: dadoColecao.environment_id,
+        collection_id: dadoColecao.collection_id,
         query: termo,
         //return: 'text' //apesar de poder colocar qual parte serah retornada
         //isso eh algo que o front-end manda. entao sempre vai retornar tudo
