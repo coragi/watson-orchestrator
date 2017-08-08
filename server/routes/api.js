@@ -55,6 +55,7 @@ if (process.env.DISCOVERY_FLAG == 'true') {
         environment_id: dadoColecao.environment_id,
         collection_id: dadoColecao.collection_id,
         query: termo,
+		count: req.query.count || 3,
         //return: 'text' //apesar de poder colocar qual parte serah retornada
         //isso eh algo que o front-end manda. entao sempre vai retornar tudo
       },
