@@ -32,12 +32,12 @@ if (process.env.DISCOVERY_FLAG == 'true') {
   });
 
   //trata o endpoint do discovery
-  router.get('/discovery/:termo', (req, res) => {
+  router.get('/discovery/', (req, res) => {
 
     //texto que serah pesquisado
     //front-end deve montar a pesquisa com as regras da API do Discovery
     //usando a funcao removeDiacritics para remover acentos
-    var termo = removeDiacritics(req.params.termo);
+    var termo = removeDiacritics(req.query.q || req.query.query);
 
     discovery.query({
         environment_id: process.env.DISCOVERY_ENVIRONMENT,
