@@ -75,17 +75,17 @@
 	  }
 	});
 	
-	function receivedEventFromServer(retorno) {
+	function receivedEventFromServer(retorno, dados) {
 		if (retorno.tipo == 'mensagem') {
-			receivedMessageFromServer(retorno.texto);
+			receivedMessageFromServer(retorno.texto, dados);
 		} else if (retorno.tipo == 'pesquisa') {			
-			receivedSearchResultsFromServer(retorno.resultados);
+			receivedSearchResultsFromServer(retorno.resultados, dados);
 		} else {
 			console.error('Tipo de mensagem inesperado: ' + retorno.tipo, retorno);
 		}
 	}
 
-	function receivedMessageFromServer(msg) {
+	function receivedMessageFromServer(msg, dados) {
 		$('.chat').removeClass('login-pendente');
 		hideServerInProgress();
 		
@@ -110,6 +110,13 @@
 				showServerInProgress();
 			}, hideServerInProgress);
 		}
+		
+		$messageContainer.find('> pesquisa').remove().each(function(){
+			var $this = $(this);
+			var tipo = $this.attr('tipo');
+			var pergunta = dados.input.text;
+			ChatService.pesquisa(tipo, pergunta);
+		});
 			
 		setDate();
 		updateScrollbar();
@@ -118,7 +125,7 @@
 		$('.message-input').focus();
 	}
 
-	function receivedSearchResultsFromServer(resultados) {
+	function receivedSearchResultsFromServer(resultados, dados) {
 		var html = tim('<ul class="search-results">{{resultados}}</ul>', {
 			resultados: resultados.map(function(res){
 				return tim('<li class="search-result">' + 
