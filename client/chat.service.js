@@ -30,9 +30,10 @@
 			}).done(function(dado){
 				console.log('Retorno do servidor de conversação', dado);
 				contextoConversacao = dado.context;
-				listenersConversa.forEach(function(listener){
-					listener(dado.output.text[0], dado);
-				});
+				invocaListenersConversa({
+					tipo: 'mensagem',
+					texto: dado.output.text[0]
+				}, dado);
 			}).fail(function(textStatus, errorThrown){
 				console.error('Erro ao comunicar com o servidor de conversação', textStatus, errorThrown);
 			});		
@@ -66,7 +67,10 @@
 			this.mensagem('Olá');
 		};
 		
-		function invocaListenersConversa(texto, dado) {
+		function invocaListenersConversa(retorno, dado) {
+			listenersConversa.forEach(function(listener){
+				listener(retorno, dado);
+			});
 		}
 		
 	};

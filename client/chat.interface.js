@@ -9,7 +9,7 @@
 	$(window).on('load', function() {
 	  $messages.mCustomScrollbar();
 	  
-	  ChatService.registraListenerConversa(receivedMessageFromServer);
+	  ChatService.registraListenerConversa(receivedEventFromServer);
 	  
 	  setTimeout(function() {
 		login();
@@ -73,7 +73,13 @@
 		}
 		return false;
 	  }
-	})
+	});
+	
+	function receivedEventFromServer(retorno) {
+		if (retorno.tipo == 'mensagem') {
+			receivedMessageFromServer(retorno.texto);
+		}
+	}
 
 	function receivedMessageFromServer(msg) {
 		$('.chat').removeClass('login-pendente');
