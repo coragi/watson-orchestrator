@@ -78,6 +78,10 @@
 	function receivedEventFromServer(retorno) {
 		if (retorno.tipo == 'mensagem') {
 			receivedMessageFromServer(retorno.texto);
+		} else if (retorno.tipo == 'pesquisa') {			
+			receivedSearchResultsFromServer(retorno.resultados);
+		} else {
+			console.error('Tipo de mensagem inesperado: ' + retorno.tipo, retorno);
 		}
 	}
 
@@ -114,6 +118,20 @@
 		$('.message-input').focus();
 	}
 
+	function receivedSearchResultsFromServer(resultados) {
+		var html = tim('<ul class="search-results">{{resultados}}</ul>', {
+			resultados: resultados.map(function(res){
+				return tim('<li>' + 
+					'<h3>{{titulo}}</h3>' + 
+					'<fieldset><legend>Problema</legend><div>{{problema}}</div></fieldset>' +
+					'<fieldset><legend>Solução</legend><div>{{solucao}}</div></fieldset>' +
+					'</li>', res);
+			}).join('\n')
+		});
+		
+		receivedMessageFromServer(html);
+	}
+	
 	function sendMessageToServer(msg) {
 		showServerInProgress();
 		ChatService.mensagem(msg)

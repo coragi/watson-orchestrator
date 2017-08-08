@@ -46,6 +46,10 @@
 				q: texto
 			}).done(function(dado){
 				console.log('Retorno do servidor de pesquisa', dado);
+				invocaListenersConversa({
+					tipo: 'pesquisa',
+					resultados: dado.results
+				}, dado);
 			}).fail(function(textStatus, errorThrown){
 				console.error('Erro ao comunicar com o servidor de pesquisa', textStatus, errorThrown);
 			});
