@@ -388,6 +388,10 @@ Search results
 	border-radius: 2px;
 }
 
+.search-result > h3:hover {
+	background: #B43338;
+}
+
 .search-result > h3 > i {
 	float: right;
 }
@@ -406,6 +410,7 @@ Search results
 .search-result.collapsed > fieldset {
 	display: none;
 }
+
 
 /*--------------------
 Custom Srollbar
