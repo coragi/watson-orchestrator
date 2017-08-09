@@ -103,7 +103,11 @@ if (process.env.CONVERSATION_FLAG == 'true') {
       //O CONTEXTO DEVE SER SETADO AQUI OU NO FRONT-END
       //PQ PODE EXISTIR A NECESSIDADE DE MODIFICAR VARIAVEIS DO CONTEXTO
 
-      //context = data.context;
+	  if (error) {
+		  console.error('Conversation error', error);
+		  res.status(500).send('Error communicating with the conversation service.');
+		  return;
+	  }
 
       //monta o cabecalho e envia a resposta
       res.setHeader('Content-Type', 'application/json');
