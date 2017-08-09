@@ -32,24 +32,39 @@ if (process.env.DISCOVERY_FLAG == 'true') {
   });
 
   //trata o endpoint do discovery
-  router.get('/discovery/:termo', (req, res) => {
-
+  router.get('/discovery/:collection?', (req, res) => {
+	  	 
     //texto que serah pesquisado
     //front-end deve montar a pesquisa com as regras da API do Discovery
     //usando a funcao removeDiacritics para remover acentos
-    var termo = removeDiacritics(req.params.termo);
+    var termo = removeDiacritics(req.query.q || req.query.query);	
+	
+	// Qual collection do Discovery será pesquisado
+    var colecao = req.params.collection;	
+	
+	console.info('Discovery',  {termo: termo, colecao: colecao});
+
+	// DISCOVERY_[colecao_]_ENVIRONMENT / DISCOVERY_[colecao_]_COLLECTION
+	prefixoEnv = 'DISCOVERY_' + (colecao ? colecao.toUpperCase() + '_' : '');
+	var dadoColecao = {
+        environment_id: process.env[prefixoEnv + 'ENVIRONMENT'],
+        collection_id: process.env[prefixoEnv + 'COLLECTION'],
+	};
 
     discovery.query({
-        environment_id: process.env.DISCOVERY_ENVIRONMENT,
-        collection_id: process.env.DISCOVERY_COLLECTION,
+        environment_id: dadoColecao.environment_id,
+        collection_id: dadoColecao.collection_id,
         query: termo,
+		count: req.query.count || 3,
         //return: 'text' //apesar de poder colocar qual parte serah retornada
         //isso eh algo que o front-end manda. entao sempre vai retornar tudo
       },
       function (error, data) {
-		if (error) {
-			console.error(error);
-		}
+        if (error) {
+			console.error('Conversation error', error);
+			res.status(500).send('Error communicating with the Discovery service.');
+			return;
+        }
 		  
         res.setHeader('Content-Type', 'application/json');
         res.status(200).json(data);
@@ -70,16 +85,25 @@ if (process.env.CONVERSATION_FLAG == 'true') {
   });
 
   //trata o endpoint do conversation
-  router.post('/conversation', (req, res, opts) => {
+  router.post('/conversation/:workspace?', (req, res, opts) => {
 	  
-	console.log('Conversa', req.body);
+	// Qual Workspace do Conversation será pesquisado
+    var workspace = req.params.workspace;	
+
+	console.log('Conversa', workspace, req.body);
+
+	// DISCOVERY_[colecao_]_ENVIRONMENT / DISCOVERY_[colecao_]_COLLECTION
+	var workspaceEnv = 'CONVERSATION_' + (workspace ? workspace.toUpperCase() + '_' : '') + 'WORKSPACE';
+	var workspace_id = process.env[workspaceEnv];
+	
+	console.log('Workspace', {env: workspaceEnv, id: workspace_id});
 
     //mensagem enviada pelo usuario
     var mensagem = req.body.input.text;
     var ctxt = req.body.context;
     //envia a mensagem para o watson  
     conversation.message({
-      workspace_id: process.env.CONVERSATION_WORKSPACE,
+      workspace_id: workspace_id,
       input: {
         'text': mensagem
       },
@@ -90,7 +114,11 @@ if (process.env.CONVERSATION_FLAG == 'true') {
       //O CONTEXTO DEVE SER SETADO AQUI OU NO FRONT-END
       //PQ PODE EXISTIR A NECESSIDADE DE MODIFICAR VARIAVEIS DO CONTEXTO
 
-      //context = data.context;
+	  if (error) {
+		  console.error('Conversation error', error);
+		  res.status(500).send('Error communicating with the conversation service.');
+		  return;
+	  }
 
       //monta o cabecalho e envia a resposta
       res.setHeader('Content-Type', 'application/json');

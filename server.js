@@ -7,6 +7,7 @@ require('dotenv').config();
 
 // Get our API routes
 const api = require('./server/routes/api');
+const universidade = require('./server/routes/universidade');
 
 const app = express();
 
@@ -19,11 +20,14 @@ app.use(express.static(path.join(__dirname, process.env.STATIC_ROOT || 'dist')))
 
 // Set our api routes
 app.use('/api', api);
+app.use('/universidade', universidade);
 
 // Catch all other routes and return the index file
+/*
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
+*/
 
 /**
  * Get port from environment and store in Express.
