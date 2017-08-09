@@ -35,7 +35,9 @@
 					texto: dado.output.text[0]
 				}, dado);
 			}).fail(function(textStatus, errorThrown){
-				console.error('Erro ao comunicar com o servidor de conversação', textStatus, errorThrown);
+				var mensagem = 'Erro ao comunicar com o servidor de conversação.';
+				console.error(mensagem, textStatus, errorThrown);
+				retornaErro(mensagem);
 			});		
 		
 		};
@@ -51,7 +53,9 @@
 					resultados: dado.results
 				}, dado);
 			}).fail(function(textStatus, errorThrown){
-				console.error('Erro ao comunicar com o servidor de pesquisa', textStatus, errorThrown);
+				var mensagem = 'Erro ao comunicar com o servidor de pesquisa.';
+				console.error(mensagem, textStatus, errorThrown);
+				retornaErro(mensagem);
 			});
 			
 		}
@@ -75,6 +79,13 @@
 			listenersConversa.forEach(function(listener){
 				listener(retorno, dado);
 			});
+		}
+		
+		function retornaErro(mensagem) {
+			invocaListenersConversa({
+				tipo: 'erro',
+				erro: mensagem
+			});			
 		}
 		
 	};
