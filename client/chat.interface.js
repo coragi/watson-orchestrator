@@ -137,6 +137,11 @@
 		});
 		
 		receivedMessageFromServer(html);
+
+		$messages.mCustomScrollbar("update").mCustomScrollbar('scrollTo', '.search-results:last', {
+			scrollInertia: 10,
+			timeout: 0
+		});
 	}
 	
 	function sendMessageToServer(msg) {
