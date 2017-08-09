@@ -413,6 +413,14 @@ Search results
 
 
 /*--------------------
+Error message
+--------------------*/
+
+.error-message {
+	color: #F44;
+}
+
+/*--------------------
 Custom Srollbar
 --------------------*/
 .mCSB_scrollTools {

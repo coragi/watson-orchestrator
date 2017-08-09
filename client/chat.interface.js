@@ -80,6 +80,8 @@
 			receivedMessageFromServer(retorno.texto, dados);
 		} else if (retorno.tipo == 'pesquisa') {			
 			receivedSearchResultsFromServer(retorno.resultados, dados);
+		} else if (retorno.tipo == 'erro') {			
+			receivedErrorFromServer(retorno.erro);
 		} else {
 			console.error('Tipo de mensagem inesperado: ' + retorno.tipo, retorno);
 		}
@@ -142,6 +144,12 @@
 			scrollInertia: 10,
 			timeout: 0
 		});
+	}
+	
+	function receivedErrorFromServer(erro) {
+		receivedMessageFromServer(tim('<div class="error-message">{{erro}}</div>', {
+			erro: erro
+		}));
 	}
 	
 	function sendMessageToServer(msg) {
