@@ -60,9 +60,11 @@ if (process.env.DISCOVERY_FLAG == 'true') {
         //isso eh algo que o front-end manda. entao sempre vai retornar tudo
       },
       function (error, data) {
-		if (error) {
-			console.error(error);
-		}
+        if (error) {
+			console.error('Conversation error', error);
+			res.status(500).send('Error communicating with the Discovery service.');
+			return;
+        }
 		  
         res.setHeader('Content-Type', 'application/json');
         res.status(200).json(data);
