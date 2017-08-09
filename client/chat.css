@@ -398,6 +398,11 @@ Search results
 	border-radius: 4px;
 }
 
+.search-result.collapsed > h3 > i:before {
+	/* Turns fa-arrow-up into fa-arrow-down */
+	content: "\f107";
+}
+
 .search-result.collapsed > fieldset {
 	display: none;
 }
