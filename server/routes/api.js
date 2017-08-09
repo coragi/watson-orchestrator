@@ -85,16 +85,25 @@ if (process.env.CONVERSATION_FLAG == 'true') {
   });
 
   //trata o endpoint do conversation
-  router.post('/conversation', (req, res, opts) => {
+  router.post('/conversation/:workspace?', (req, res, opts) => {
 	  
-	console.log('Conversa', req.body);
+	// Qual Workspace do Conversation será pesquisado
+    var workspace = req.params.workspace;	
+
+	console.log('Conversa', workspace, req.body);
+
+	// DISCOVERY_[colecao_]_ENVIRONMENT / DISCOVERY_[colecao_]_COLLECTION
+	var workspaceEnv = 'CONVERSATION_' + (workspace ? workspace.toUpperCase() + '_' : '') + 'WORKSPACE';
+	var workspace_id = process.env[workspaceEnv];
+	
+	console.log('Workspace', {env: workspaceEnv, id: workspace_id});
 
     //mensagem enviada pelo usuario
     var mensagem = req.body.input.text;
     var ctxt = req.body.context;
     //envia a mensagem para o watson  
     conversation.message({
-      workspace_id: process.env.CONVERSATION_WORKSPACE,
+      workspace_id: workspace_id,
       input: {
         'text': mensagem
       },
